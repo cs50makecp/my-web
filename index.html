@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Winner Search</title>
+<link rel="preconnect" >
+<style>
+  :root{
+    --ink:#12312B;
+    --paper:#F6F1E4;
+    --brand:#0F5C52;
+    --brand-dark:#0A3E38;
+    --accent:#B5321C;
+    --gold:#C79A2B;
+    --card:#FFFFFF;
+    --line:#E4DAC0;
+    --muted:#6B6153;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  h1,.brand{font-family:'Baloo 2','Inter',sans-serif;}
+
+  .motif-strip{
+    height:14px;
+    width:100%;
+    
+  }
+
+  header{
+    background:var(--white-dark);
+    color:var(--white);
+    padding:18px 24px;
+  }
+  .brand{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:24px;
+    font-weight:800;
+  }
+
+  .hero{
+    flex:1;
+    position:relative;
+    background-size:cover;
+    background-position:center;
+    background-color:var(--brand);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:60px 24px;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(43, 197, 61, 0.25), transparent 45%),
+      radial-gradient(circle at 80% 80%, rgba(181,50,28,.25), transparent 45%);
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(4, 245, 201, 0);
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative;
+    max-width:600px;
+    width:100%;
+    text-align:center;
+    color:var(--paper);
+  }
+  .hero h1{
+    font-size:clamp(26px,4vw,38px);
+    margin:10px;
+    font-weight:bold;
+    color: #07813a;;
+  }
+  .hero p{
+    margin:0 0 28px;
+    font-size:20px;
+    opacity:9;
+    color: #000000;
+    font-weight: bold;
+  }
+  .search-box{
+    display:flex;
+    gap:10px;
+    background:var(--card);
+    padding:8px;
+    border-radius:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+  }
+  .search-box input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding:12px 14px;
+    font-size:16px;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    border-radius:8px;
+    background:#fff;
+  }
+  .search-box button{
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    padding:12px 22px;
+    font-size:15px;
+    font-weight:600;
+    font-family:'Inter',sans-serif;
+    cursor:pointer;
+    transition:.2s;
+    white-space:nowrap;
+  }
+  .search-box button:hover{background:#8f2716;}
+  .warn{
+    margin-top:12px;
+    font-size:13px;
+    color:#FFE1B0;
+    min-height:18px;
+  }
+
+  footer{
+    text-align:center;
+    padding:18px;
+    font-size:12px;
+    color:var(--muted);
+    background:var(--paper);
+  }
+
+  @media (max-width:480px){
+    .search-box{flex-direction:column;}
+    .search-box button{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="motif-strip"></div>
+
+<header>
+  <div class="brand">
+    <svg width="26" height="26" viewBox="0 0 30 30" fill="none">
+      <circle cx="15" cy="15" r="14" stroke="#C79A2B" stroke-width="2"/>
+      <path d="M9 16l4 4 8-9" stroke="#C79A2B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    IT From
+  </div>
+</header>
+
+<section class="hero" id="heroSection">
+  <div class="hero-inner">
+    <h1>Search by Winner Name</h1>
+    <p>Type a name and click Search to view the Winner Details</p>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Type a winner name..." autocomplete="off">
+      <button id="searchBtn">Search Result</button>
+    </div>
+    <div class="warn" id="warnMsg"></div>
+  </div>
+</section>
+
+<footer>Official Thai Lottery Results from Government Lottery Office (GLO) </footer>
+
+<script>
+/* =========================================================================
+   ============  PUT YOUR BACKGROUND IMAGE HERE (ONLY ONE IMAGE)  ==========
+   =========================================================================
+   Set BACKGROUND_IMAGE to the path or link of your background picture.
+   Example (local file next to this HTML, inside an "images" folder):
+       const BACKGROUND_IMAGE = "images/background.jpg";
+   Example (a link):
+       const BACKGROUND_IMAGE = "https://example.com/background.jpg";
+   ========================================================================= */
+/*BACKGROUND_IMAGE  */
+const BACKGROUND_IMAGE = "bg.jpg";
+
+/* =========================================================================
+   The page below points to "result.html" when Search is clicked.
+   Make sure result.html sits in the same folder as this file.
+   You do NOT need to change anything below this line.
+   ========================================================================= */
+
+(function(){
+  const hero = document.getElementById('heroSection');
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const warnMsg = document.getElementById('warnMsg');
+
+  if(BACKGROUND_IMAGE){
+    hero.style.backgroundImage =
+      "radial-gradient(circle at 20% 20%, rgba(197,154,43,.25), transparent 100%),"+
+      "radial-gradient(circle at 80% 80%, rgba(181,50,28,.25), transparent 100%),"+
+      "url('"+BACKGROUND_IMAGE+"')";
+  }
+
+  function goSearch(){
+    const query = searchInput.value.trim();
+    if(!query){
+      warnMsg.textContent = 'Please type a name first.';
+      return;
+    }
+    window.location.href = "result.html?q=" + encodeURIComponent(query);
+  }
+
+  searchBtn.addEventListener('click', goSearch);
+  searchInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') goSearch();
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Result</title>
+<style>
+  :root{
+    --ink:#12312B;
+    --paper:#F6F1E4;
+    --brand:#0F5C52;
+    --brand-dark:#0A3E38;
+    --accent:#B5321C;
+    --gold:#C79A2B;
+    --card:#FFFFFF;
+    --line:#E4DAC0;
+    --muted:#6B6153;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  h1,.brand{font-family:'Baloo 2','Inter',sans-serif;}
+
+  .motif-strip{
+    height:14px;
+    width:100%;
+    background:
+      repeating-linear-gradient(135deg,
+        var(--gold) 0 10px,
+        var(--accent) 10px 20px,
+        var(--brand) 20px 30px);
+  }
+
+  header{
+    background:var(--brand-dark);
+    color:var(--paper);
+    padding:18px 24px;
+  }
+  .brand{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:24px;
+    font-weight:800;
+  }
+
+  main{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:50px 24px;
+  }
+  .result-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    max-width:480px;
+    width:100%;
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(18,49,43,.12);
+  }
+  .result-card .img-wrap{
+    aspect-ratio:1/1;
+    background:#F1ECDC;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .result-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .result-card .missing{
+    font-size:14px;
+    color:var(--muted);
+    padding:24px;
+    text-align:center;
+  }
+  .result-body{
+    padding:20px 22px 24px;
+    border-top:3px solid var(--gold);
+  }
+  .result-body .label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--muted);
+    margin:0 0 4px;
+  }
+  .result-body .query{
+    font-size:19px;
+    font-weight:700;
+    color:var(--brand-dark);
+    margin:0 0 16px;
+    word-break:break-word;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color:var(--accent);
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+  }
+  .back-link:hover{text-decoration:underline;}
+
+  footer{
+    text-align:center;
+    padding:18px;
+    font-size:12px;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="motif-strip"></div>
+
+<header>
+  <div class="brand">
+    <svg width="26" height="26" viewBox="0 0 30 30" fill="none">
+      <circle cx="15" cy="15" r="14" stroke="#C79A2B" stroke-width="2"/>
+      <path d="M9 16l4 4 8-9" stroke="#C79A2B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    IT From
+  </div>
+</header>
+
+<main>
+  <div class="result-card">
+    <div class="img-wrap" id="imgWrap"></div>
+    <div class="result-body">
+      <p class="label">Winner for To</p>
+      <p class="query" id="queryText">—</p>
+      <a class="back-link" href="index.html">&larr; Back to search</a>
+    </div>
+  </div>
+</main>
+
+<footer>Official Thai Lottery Results from Government Lottery Office (GLO)</footer>
+
+<script>
+/* =========================================================================
+   ============  PUT YOUR RESULT IMAGE HERE (ONLY ONE IMAGE)  ==============
+   =========================================================================
+   Set RESULT_IMAGE to the path or link of the picture that should show
+   up whenever someone searches.
+   Example (local file next to this HTML, inside an "images" folder):
+       const RESULT_IMAGE = "images/result.jpg";
+   Example (a link):
+       const RESULT_IMAGE = "https://example.com/result.jpg";
+   ========================================================================= */
+/* input image*/
+const RESULT_IMAGE = "free.jpg";
+
+/* =========================================================================
+   You do NOT need to change anything below this line.
+   ========================================================================= */
+
+(function(){
+  const imgWrap = document.getElementById('imgWrap');
+  const queryText = document.getElementById('queryText');
+
+  const params = new URLSearchParams(window.location.search);
+  const q = params.get('q');
+  queryText.textContent = q ? q : 'Not found';
+
+  if(RESULT_IMAGE){
+    const img = document.createElement('img');
+    img.src = RESULT_IMAGE;
+    img.alt = q || 'Result';
+    img.onerror = function(){
+      imgWrap.innerHTML = '<div class="missing">Image not found — check the RESULT_IMAGE path in the code.</div>';
+    };
+    imgWrap.appendChild(img);
+  } else {
+    imgWrap.innerHTML = '<div class="missing">No image set yet.</div>';
+  }
+})();
+</script>
+
+</body>
+</html>
