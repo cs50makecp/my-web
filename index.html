@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Winner Search</title>
+<title> Board Result</title>
 <link rel="preconnect" >
 <style>
   :root{
@@ -100,6 +100,15 @@
     border-radius:14px;
     box-shadow:0 12px 30px rgba(0,0,0,.25);
   }
+  }
+  .search-box1{
+    display:flex;
+    gap:10px;
+    background:var(--card);
+    padding:10px;
+    border-radius:15px;
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+  }
   .search-box input{
     flex:1;
     border:none;
@@ -156,23 +165,26 @@
       <circle cx="15" cy="15" r="14" stroke="#C79A2B" stroke-width="2"/>
       <path d="M9 16l4 4 8-9" stroke="#C79A2B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    IT From
+    Board Result
   </div>
 </header>
 
 <section class="hero" id="heroSection">
   <div class="hero-inner">
-    <h1>Search by Winner Name</h1>
-    <p>Type a name and click Search to view the Winner Details</p>
+    <h1>Search jessore Board Result </h1>
+    <p>Type a Roll  and click Search to view the Result SSC 2026</p>
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Type a winner name..." autocomplete="off">
-      <button id="searchBtn">Search Result</button>
+      <button id="searchBtn">Submit </button>
     </div>
+    <div class= "search-box1">
+      <input type="text" id="searchInput" placeholder="Type a winner name..." autocomplete="off">
+      
     <div class="warn" id="warnMsg"></div>
   </div>
 </section>
 
-<footer> Raihan CPI </footer>
+<footer> Offical Website of Education Board </footer>
 
 <script>
 /* =========================================================================
